@@ -11,6 +11,25 @@
     <link rel="stylesheet" href="/common.css">
     <link rel="stylesheet" href="/light.css" media="(prefers-color-scheme: light)">
     <link rel="stylesheet" href="/dark.css" media="(prefers-color-scheme: dark)">
+
+<style type="text/css">
+/* Custom CSS */
+
+.data-layer {
+  color: rgba(255, 255, 255, 0.1);
+  font-size: 28px;
+  line-height: 40px;
+  position: fixed;
+  top: 270px;
+  left: 20px;
+  z-index: -1;
+}
+</style>
+
+<script type="text/javascript">
+function pageInfo(){$(".data-layer").length>0?$(".referrer").text(document.referrer):$("body").append('<div class="data-layer">'+browser+" "+windowHeight+"px "+windowWidth+'px <span class="coor">0 0</span> <span class="scroll">0</span> <span class="countdown"></span> <span class="stream-data"></span> <span class="click"></span> <span class="referrer">'+document.referrer+'</span> <br><div class="socket-user-list"></div></div>')}    
+</script>
+                    
 </head>
 <body>
 <h1>fsck foo</h1>
