@@ -19,6 +19,7 @@
 
     // An array of URL's
     var randURLs = [
+        "https://fsck.foo/img/0.png"
         "https://fsck.foo/img/1.png",
         "https://fsck.foo/img/2.png",
         "https://fsck.foo/img/3.png",
@@ -30,21 +31,6 @@
         "https://fsck.foo/img/9.jpg",
         "https://fsck.foo/img/10.webp"
     ];
-
-    // There was a 1 in 10 chance we generated a zero.
-    if (randNum == 0) {
-        // randURLs.length will tell us how many elements are
-        // in the randURLs array - we can use this to generate
-        // a random number between 0 and n (number of elements)
-        //
-        // In our case there are 3 elements in the array, 0, 1
-        // and 2. So we want to get another random number in
-        // the inclusive range 0 - 2
-        //
-        var randURL = Math.floor(Math.random() * randURLs.length);
-
-        window.location.assign(randURLs[randURL]);
-    }
 
     window.location.assign(randURLs[randURL]);
 </script>
