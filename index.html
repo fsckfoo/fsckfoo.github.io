@@ -1,43 +1,55 @@
-<!-- bruh -->
+<!-- :3 -->
 <!DOCTYPE html>
 <html>
 <head>
-<title>fsck foo</title>
+<title>fsck.foo</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="supported-color-schemes" content="light dark">   
-    <meta name="color-scheme" content="light dark">   
-    <link rel="stylesheet" href="/common.css">
-    <link rel="stylesheet" href="/light.css" media="(prefers-color-scheme: light)">
-    <link rel="stylesheet" href="/dark.css" media="(prefers-color-scheme: dark)">
-
-<style type="text/css">
-/* Custom CSS */
-
-.data-layer {
-  color: rgba(255, 255, 255, 0.1);
-  font-size: 28px;
-  line-height: 40px;
-  position: fixed;
-  top: 270px;
-  left: 20px;
-  z-index: -1;
-}
-</style>
-
-
-                    
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">           
 </head>
 <body>
-<h1>fsck foo</h1>
-<p>fsck foo</p>
 
-<script type="text/javascript">
-function pageInfo(){$(".data-layer").length>0?$(".referrer").text(document.referrer):$("body").append('<div class="data-layer">'+browser+" "+windowHeight+"px "+windowWidth+'px <span class="coor">0 0</span> <span class="scroll">0</span> <span class="countdown"></span> <span class="stream-data"></span> <span class="click"></span> <span class="referrer">'+document.referrer+'</span> <br><div class="socket-user-list"></div></div>')}    
-</script>    
+<script>
+    // shamelessly stolen and adapted from https://stackoverflow.com/questions/40456048/random-html-page-redirect
+    
+    // get a random number between 0 and 10
+    //
+    var randNum = Math.floor(Math.random() * 10);
 
+    // An array of URL's
+    var randURLs = [
+        "https://fsck.foo/img/1",
+        "https://fsck.foo/img/2",
+        "https://fsck.foo/img/3",
+        "https://fsck.foo/img/4",
+        "https://fsck.foo/img/5",
+        "https://fsck.foo/img/6",
+        "https://fsck.foo/img/7",
+        "https://fsck.foo/img/8",
+        "https://fsck.foo/img/9",
+        "https://fsck.foo/img/10"
+    ];
+
+    // There was a 1 in 10 chance we generated a zero.
+    if (randNum == 0) {
+        // randURLs.length will tell us how many elements are
+        // in the randURLs array - we can use this to generate
+        // a random number between 0 and n (number of elements)
+        //
+        // In our case there are 3 elements in the array, 0, 1
+        // and 2. So we want to get another random number in
+        // the inclusive range 0 - 2
+        //
+        var randURL = Math.floor(Math.random() * randURLs.length);
+
+        window.open(randURLs[randURL]);
+    }
+</script>
+
+<noscript>Your browser does not support JavaScript! You must be either a boomer or a |_33'][' |-|/-\><0|2 !!1!2!1!!!</noscript>
+    
 </body>
 </html>
 
-<!-- :3 -->
+<!-- ;3 -->
