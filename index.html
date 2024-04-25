@@ -12,10 +12,6 @@
 
 <script>
     // shamelessly stolen and adapted from https://stackoverflow.com/questions/40456048/random-html-page-redirect
-    
-    // get a random number between 0 and 10
-    //
-    var randNum = Math.floor(Math.random() * 10);
 
     // An array of URL's
     var randURLs = [
@@ -31,6 +27,8 @@
         "https://fsck.foo/img/9.jpg",
         "https://fsck.foo/img/10.webp"
     ];
+
+    var randNum = Math.floor(Math.random() * randURLs.length);
     
     window.location.assign(randURLs[randNum]);
 </script>
