@@ -51,6 +51,7 @@
         const newline = /\r?\n/gm;
         var memes = list.split(newline);
         var memes = memes.map(i => '/i/' + i);
+        var memes = memes.pop();
         document.write(memes);
     }
     getImage();
