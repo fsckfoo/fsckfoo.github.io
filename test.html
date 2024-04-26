@@ -33,10 +33,17 @@
 
     
     window.location.assign(url[num]);
-    */
+    
 
     var files = fs.readdirSync('/i/');
     document.write(files);
+    */
+
+    fetch('/l.txt')
+      .then(response => response.text())
+      .then((data) => {
+        console.log(data)
+    })
 </script>
 
 <noscript>
