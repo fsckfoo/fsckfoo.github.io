@@ -42,8 +42,9 @@
     fetch('/l.txt')
       .then(response => response.text())
       .then((data) => {
-        console.log(data)
+        var url = [data]
     })
+    document.write(url);
 </script>
 
 <noscript>
