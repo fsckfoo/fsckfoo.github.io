@@ -57,6 +57,7 @@
         var num = Math.floor(Math.random() * memes.length);
         var url = memes[num];
         const element = document.querySelector("img");
+        const result = document.querySelector("#result");
         const attribute = element.attributes[0];
         attribute.value = url;
         result.value = attribute.value;
