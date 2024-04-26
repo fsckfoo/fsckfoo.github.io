@@ -46,10 +46,10 @@
     */
 
     async function imgs() {
-        const response = await fetch("/l.txt");
-        const list = await Response.text();
+        const response = fetch("/l.txt");
+        const list = response.text();
         var i = [];
-        i.push(list);
+        var i = list.split(\n);
     }
     imgs();
     document.write(imgs);
