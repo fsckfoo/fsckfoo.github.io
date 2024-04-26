@@ -46,6 +46,7 @@
     */
 
     var fileURL = "/l.txt"
+    var urlOfFile = fileURL
     async function* makeTextFileLineIterator(fileURL) {
   const utf8Decoder = new TextDecoder("utf-8");
   const response = await fetch(fileURL);
