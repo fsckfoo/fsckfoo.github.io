@@ -1,34 +1,53 @@
-<!-- :3 -->
+<!-- got filez? send f(emales) to meme.submissions [weird squigly like A thigny] retarded.tranny.faggot.pictures -->
 <!DOCTYPE html>
 <html>
 <head>
-<title>fsck.foo</title>
+<title>retarded.tranny.faggot.pictures</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">           
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <style>
+        html, body {
+            height: 100%;
+        }
+
+        html {
+            display: table;
+            margin: auto;
+        }
+
+        body {
+            display: table-cell;
+            vertical-align: middle;
+        }
+    
+        body {
+            background-color: #121212;
+            background-image: url(flag.gif);
+        }
+    </style>
 </head>
 <body>
-
+    
 <script>
     // redirects the user to a random meme
-    // shamelessly stolen and adapted from https://stackoverflow.com/questions/40456048/random-html-page-redirect
+    async function getImage() {
+        var memes = [];
+        const response = await fetch("/l.txt");
+        const list = await response.text();
+        const newline = /\r?\n/gm;
+        var memes = list.split(newline);
+        var memes = memes.map(i => '/i/' + i);
+        memes.pop();
+        var num = Math.floor(Math.random() * memes.length);
+        var url = memes[num];
+        var oImg = document.createElement("img");
+        oImg.setAttribute('src', url);
+        document.body.appendChild(oImg);
+    }
+    getImage();
 
-    // An array of URL's
-    var url = [
-        "/i/0.png",
-        "/i/1.png",
-        "/i/2.png",
-        "/i/3.png",
-        "/i/4.jpeg",
-        "/i/8.jpg",
-        "/i/9.jpg",
-        "/i/10.webp"
-    ];
-
-    var num = Math.floor(Math.random() * url.length);
     
-    window.location.assign(url[num]);
 </script>
 
 <noscript>
