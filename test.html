@@ -9,7 +9,6 @@
     <link rel="icon" type="image/x-icon" href="/favicon.ico">           
 </head>
 <body>
-<img src="/l.png">
     
 <script>
     // redirects the user to a random meme
@@ -53,14 +52,10 @@
         var memes = list.split(newline);
         var memes = memes.map(i => '/i/' + i);
         memes.pop();
-        document.write(memes);
         var num = Math.floor(Math.random() * memes.length);
         var url = memes[num];
-        const element = document.querySelector("img");
-        const result = document.querySelector("#result");
-        const attribute = element.attributes[0];
-        attribute.value = url;
-        result.value = attribute.value;
+        let memeElement = document.createElement("img");
+        memeElement.append(url);
     }
     getImage();
 
