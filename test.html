@@ -44,12 +44,11 @@
     url.push(list);
     document.write(url);
     */
-
+    var i = [];
     async function imgs() {
         const response = await fetch("/l.txt");
         const list = await response.text();
-        var i = [];
-        var i = list.split("\n");
+        i.push = list.split("\n");
         return i;
     }
     imgs();
