@@ -39,8 +39,7 @@
     document.write(files);
     */
 
-    const response = await fetch("/l.txt");
-    const list = await response.json();
+    var list = fetch("/l.txt");
     var url = [];
     url.push(list);
     document.write(url);
