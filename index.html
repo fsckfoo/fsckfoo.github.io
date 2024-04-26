@@ -6,34 +6,34 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">           
+    <link rel="icon" type="image/x-icon" href="/i/favicon.ico">           
 </head>
 <body>
 
 <script>
+    // redirects the user to a random meme
     // shamelessly stolen and adapted from https://stackoverflow.com/questions/40456048/random-html-page-redirect
 
     // An array of URL's
     var url = [
-        "https://fsck.foo/img/0.png",
-        "https://fsck.foo/img/1.png",
-        "https://fsck.foo/img/2.png",
-        "https://fsck.foo/img/3.png",
-        "https://fsck.foo/img/4.jpeg",
-        "https://fsck.foo/img/5.gif",
-        "https://fsck.foo/img/6.mp4",
-        "https://fsck.foo/img/7.mp4",
-        "https://fsck.foo/img/8.jpg",
-        "https://fsck.foo/img/9.jpg",
-        "https://fsck.foo/img/10.webp"
+        "/i/0.png",
+        "/i/1.png",
+        "/i/2.png",
+        "/i/3.png",
+        "/i/4.jpeg",
+        "/i/8.jpg",
+        "/i/9.jpg",
+        "/i/10.webp"
     ];
 
-    var num = Math.floor(Math.random() * 10);
+    var num = Math.floor(Math.random() * url.length);
     
     window.location.assign(url[num]);
 </script>
 
-<noscript>Your browser does not support JavaScript! You must be either a boomer or a |_33'][' |-|/-\><0|2 !!1!2!1!!!</noscript>
+<noscript>
+  <meta http-equiv="refresh" content="0;url=view-source:https://fsck.foo/index.html">
+</noscript>
     
 </body>
 </html>
