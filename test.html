@@ -48,7 +48,7 @@
     async function imgs() {
         const response = await fetch("/l.txt");
         const list = await response.text();
-        i.push = list.split("\n");
+        i.push = list.split(" ");
         return i;
     }
     imgs();
