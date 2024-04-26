@@ -47,7 +47,7 @@
 
     async function imgs() {
         const response = await fetch("/l.txt");
-        const list = await response.String();
+        const list = await response.body();
         var i = [];
         i.push(list);
     }
