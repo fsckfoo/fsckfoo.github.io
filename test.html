@@ -54,9 +54,9 @@
         memes.pop();
         var num = Math.floor(Math.random() * memes.length);
         var url = memes[num];
-        var img = document.createElement('img');
-        img.src = url;
-        document.getElementById('container').appendChild(img);
+        var oImg = document.createElement("img");
+        oImg.setAttribute('src', url);
+        document.body.appendChild(oImg);
     }
     getImage();
 
