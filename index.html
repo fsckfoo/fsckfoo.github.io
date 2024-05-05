@@ -1,11 +1,10 @@
 <!-- faqz: -->
-<!-- Q: iz this a ip logr? -->
-<!-- A: no, github pages doesnt give the owner access to http server logz and i dont have any js analytics -->
-<!-- got filez? send f(emales) to meme.submissions [weird squigly like A thigny] retarded.tranny.faggot.pictures -->
+<!-- Q: iz this a ip logr or malwarlz? -->
+<!-- A: no, github pages doesnt give the owner access to http server logz and i dont have any js analytics, the only js is found below and easy to read lmao -->
 <!DOCTYPE html>
 <html>
 <head>
-<title>retarded.tranny.faggot.pictures</title>
+<title>tranny.faggot.pictures</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1"> 
@@ -37,24 +36,29 @@
 <body>
     
 <script>
-    // redirects the user to a random meme
+    // adds an image into the html, this is the best i could do without server side scripting lmao, yes its dogshit but it works
     async function getImage() {
+        // init memes list array
         var memes = [];
+        // use fetch to load the text file of all the meme filenames (i gen this using `ls -1 $DIR > l.txt` on my lappy)
         const response = await fetch("/l.txt");
         const list = await response.text();
+        // seperate the list of meme filenames by newlines when adding them to the array
         const newline = /\r?\n/gm;
         var memes = list.split(newline);
+        // add `/i/` to the end of every filename so the path is correct, plus pop out the last entry since its just `/i/`
         var memes = memes.map(i => '/i/' + i);
         memes.pop();
+        // get a random number 0 to X with X being the number of entries in the memes array
         var num = Math.floor(Math.random() * memes.length);
+        // choose a random entry in memes
         var url = memes[num];
+        // create a new img element in the document with the url being the image to load
         var oImg = document.createElement("img");
         oImg.setAttribute('src', url);
         document.body.appendChild(oImg);
     }
     getImage();
-
-    
 </script>
 
 <noscript>
