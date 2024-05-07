@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hi</title>
+
+    <link href="/beta/index.css" rel="stylesheet">
+</head>
+
+<body>
+    <canvas id="glcanvas"></canvas>
+    <headline id="headline" style="transform: translate(-50%, -50.0%)"></headline>
+    <!-- <landing>
+        <arrow id="projects" href="#projects" onclick="scrollToProjects()">
+            <arrow-top></arrow-top>
+            <arrow-bottom></arrow-bottom>
+        </arrow>
+    </landing> -->
+</body>
+
+
+<svg>
+    <filter id='noiseFilter'>
+        <feTurbulence type='fractalNoise' baseFrequency='0.6' stitchTiles='stitch' />
+        <feColorMatrix in="colorNoise" type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0" />
+        <feComposite operator="in" in2="SourceGraphic" result="monoNoise" />
+        <feBlend in="SourceGraphic" in2="monoNoise" mode="screen" />
+    </filter>
+
+</svg>
+
+
+<script>
+    let gl,
+        canvas,
+        buffer,
+        shaderScript,
+        shaderSource,
+        vertexShader,
+        fragmentShader,
+        timeLocation,
+        seedLocation,
+        middleLocation
+
+    const updateSize = (canvas, gl) => {
+        canvas.width = document.documentElement.clientWidth;
+        canvas.height = document.documentElement.clientHeight;
+
+        gl.uniform1f(middleLocation, document.documentElement.scrollTop)
+        const headline = document.querySelector("headline");
+        // headline.style.transform = headline.style.transform.replace(/-?[\d\.]+(%|px)\)/, `${document.documentElement.scrollTop + 1}px`);
+
+        // console.log(document.documentElement.scrollTop)
+        gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight)
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        document.querySelector('#headline').innerHTML = window.location.host;
+
+        canvas = document.getElementById('glcanvas')
+        gl = canvas.getContext('webgl')
+
+        buffer = gl.createBuffer()
+        gl.bindBuffer(gl.ARRAY_BUFFER, buffer)
+        gl.bufferData(
+            gl.ARRAY_BUFFER,
+            new Float32Array([
+                -1.0,
+                -1.0,
+                1.0,
+                -1.0,
+                -1.0,
+                1.0,
+                -1.0,
+                1.0,
+                1.0,
+                -1.0,
+                1.0,
+                1.0
+            ]),
+            gl.STATIC_DRAW
+        )
+
+        vertexShader = gl.createShader(gl.VERTEX_SHADER)
+
+        gl.shaderSource(vertexShader, `
+          attribute vec2 a_position;
+          void main() {
+            gl_Position = vec4(a_position, 0, 1);
+          }
+        `)
+        gl.compileShader(vertexShader)
+
+        fragmentShader = gl.createShader(gl.FRAGMENT_SHADER)
+
+        gl.shaderSource(fragmentShader, `
+            precision mediump float;
+
+            vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+            vec4 mod289(vec4 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+            vec4 permute(vec4 x) { return mod289(((x*34.0)+1.0)*x); }
+            vec4 taylorInvSqrt(vec4 r) { return 1.79284291400159 - 0.85373472095314 * r; }
+            vec3 fade(vec3 t) { return t*t*t*(t*(t*6.0-15.0)+10.0); }
+            float noise(vec3 P) {
+                vec3 i0 = mod289(floor(P)), i1 = mod289(i0 + vec3(1.0));
+                vec3 f0 = fract(P), f1 = f0 - vec3(1.0), f = fade(f0);
+                vec4 ix = vec4(i0.x, i1.x, i0.x, i1.x), iy = vec4(i0.yy, i1.yy);
+                vec4 iz0 = i0.zzzz, iz1 = i1.zzzz;
+                vec4 ixy = permute(permute(ix) + iy), ixy0 = permute(ixy + iz0), ixy1 = permute(ixy + iz1);
+                vec4 gx0 = ixy0 * (1.0 / 7.0), gy0 = fract(floor(gx0) * (1.0 / 7.0)) - 0.5;
+                vec4 gx1 = ixy1 * (1.0 / 7.0), gy1 = fract(floor(gx1) * (1.0 / 7.0)) - 0.5;
+                gx0 = fract(gx0); gx1 = fract(gx1);
+                vec4 gz0 = vec4(0.5) - abs(gx0) - abs(gy0), sz0 = step(gz0, vec4(0.0));
+                vec4 gz1 = vec4(0.5) - abs(gx1) - abs(gy1), sz1 = step(gz1, vec4(0.0));
+                gx0 -= sz0 * (step(0.0, gx0) - 0.5); gy0 -= sz0 * (step(0.0, gy0) - 0.5);
+                gx1 -= sz1 * (step(0.0, gx1) - 0.5); gy1 -= sz1 * (step(0.0, gy1) - 0.5);
+                vec3 g0 = vec3(gx0.x,gy0.x,gz0.x), g1 = vec3(gx0.y,gy0.y,gz0.y),
+                    g2 = vec3(gx0.z,gy0.z,gz0.z), g3 = vec3(gx0.w,gy0.w,gz0.w),
+                    g4 = vec3(gx1.x,gy1.x,gz1.x), g5 = vec3(gx1.y,gy1.y,gz1.y),
+                    g6 = vec3(gx1.z,gy1.z,gz1.z), g7 = vec3(gx1.w,gy1.w,gz1.w);
+                vec4 norm0 = taylorInvSqrt(vec4(dot(g0,g0), dot(g2,g2), dot(g1,g1), dot(g3,g3)));
+                vec4 norm1 = taylorInvSqrt(vec4(dot(g4,g4), dot(g6,g6), dot(g5,g5), dot(g7,g7)));
+                g0 *= norm0.x; g2 *= norm0.y; g1 *= norm0.z; g3 *= norm0.w;
+                g4 *= norm1.x; g6 *= norm1.y; g5 *= norm1.z; g7 *= norm1.w;
+                vec4 nz = mix(vec4(dot(g0, vec3(f0.x, f0.y, f0.z)), dot(g1, vec3(f1.x, f0.y, f0.z)),
+                    dot(g2, vec3(f0.x, f1.y, f0.z)), dot(g3, vec3(f1.x, f1.y, f0.z))),
+                    vec4(dot(g4, vec3(f0.x, f0.y, f1.z)), dot(g5, vec3(f1.x, f0.y, f1.z)),
+                        dot(g6, vec3(f0.x, f1.y, f1.z)), dot(g7, vec3(f1.x, f1.y, f1.z))), f.z);
+                return 2.2 * mix(mix(nz.x,nz.z,f.y), mix(nz.y,nz.w,f.y), f.x);
+            }
+
+            float quintic(const in float v) { return v*v*v*(v*(v*6.0-15.0)+10.0); }
+            vec2  quintic(const in vec2 v)  { return v*v*v*(v*(v*6.0-15.0)+10.0); }
+            vec3  quintic(const in vec3 v)  { return v*v*v*(v*(v*6.0-15.0)+10.0); }
+            vec4  quintic(const in vec4 v)  { return v*v*v*(v*(v*6.0-15.0)+10.0); }
+
+            float pnoise(in vec3 P, in vec3 rep) {
+                vec3 Pi0 = mod(floor(P), rep); // Integer part, modulo period
+                vec3 Pi1 = mod(Pi0 + vec3(1.0), rep); // Integer part + 1, mod period
+                Pi0 = mod289(Pi0);
+                Pi1 = mod289(Pi1);
+                vec3 Pf0 = fract(P); // Fractional part for interpolation 
+                vec3 Pf1 = Pf0 - vec3(1.0); // Fractional part - 1.0
+                vec4 ix = vec4(Pi0.x, Pi1.x, Pi0.x, Pi1.x);
+                vec4 iy = vec4(Pi0.yy, Pi1.yy);
+                vec4 iz0 = Pi0.zzzz;
+                vec4 iz1 = Pi1.zzzz;
+
+                vec4 ixy = permute(permute(ix) + iy);
+                vec4 ixy0 = permute(ixy + iz0);
+                vec4 ixy1 = permute(ixy + iz1);
+
+                vec4 gx0 = ixy0 * (1.0 / 7.0);
+                vec4 gy0 = fract(floor(gx0) * (1.0 / 7.0)) - 0.5;
+                gx0 = fract(gx0);
+                vec4 gz0 = vec4(0.5) - abs(gx0) - abs(gy0);
+                vec4 sz0 = step(gz0, vec4(0.0));
+                gx0 -= sz0 * (step(0.0, gx0) - 0.5);
+                gy0 -= sz0 * (step(0.0, gy0) - 0.5);
+
+                vec4 gx1 = ixy1 * (1.0 / 7.0);
+                vec4 gy1 = fract(floor(gx1) * (1.0 / 7.0)) - 0.5;
+                gx1 = fract(gx1);
+                vec4 gz1 = vec4(0.5) - abs(gx1) - abs(gy1);
+                vec4 sz1 = step(gz1, vec4(0.0));
+                gx1 -= sz1 * (step(0.0, gx1) - 0.5);
+                gy1 -= sz1 * (step(0.0, gy1) - 0.5);
+
+                vec3 g000 = vec3(gx0.x,gy0.x,gz0.x);
+                vec3 g100 = vec3(gx0.y,gy0.y,gz0.y);
+                vec3 g010 = vec3(gx0.z,gy0.z,gz0.z);
+                vec3 g110 = vec3(gx0.w,gy0.w,gz0.w);
+                vec3 g001 = vec3(gx1.x,gy1.x,gz1.x);
+                vec3 g101 = vec3(gx1.y,gy1.y,gz1.y);
+                vec3 g011 = vec3(gx1.z,gy1.z,gz1.z);
+                vec3 g111 = vec3(gx1.w,gy1.w,gz1.w);
+
+                vec4 norm0 = taylorInvSqrt(vec4(dot(g000, g000), dot(g010, g010), dot(g100, g100), dot(g110, g110)));
+                g000 *= norm0.x;
+                g010 *= norm0.y;
+                g100 *= norm0.z;
+                g110 *= norm0.w;
+                vec4 norm1 = taylorInvSqrt(vec4(dot(g001, g001), dot(g011, g011), dot(g101, g101), dot(g111, g111)));
+                g001 *= norm1.x;
+                g011 *= norm1.y;
+                g101 *= norm1.z;
+                g111 *= norm1.w;
+
+                float n000 = dot(g000, Pf0);
+                float n100 = dot(g100, vec3(Pf1.x, Pf0.yz));
+                float n010 = dot(g010, vec3(Pf0.x, Pf1.y, Pf0.z));
+                float n110 = dot(g110, vec3(Pf1.xy, Pf0.z));
+                float n001 = dot(g001, vec3(Pf0.xy, Pf1.z));
+                float n101 = dot(g101, vec3(Pf1.x, Pf0.y, Pf1.z));
+                float n011 = dot(g011, vec3(Pf0.x, Pf1.yz));
+                float n111 = dot(g111, Pf1);
+
+                vec3 fade_xyz = quintic(Pf0);
+                vec4 n_z = mix(vec4(n000, n100, n010, n110), vec4(n001, n101, n011, n111), fade_xyz.z);
+                vec2 n_yz = mix(n_z.xy, n_z.zw, fade_xyz.y);
+                float n_xyz = mix(n_yz.x, n_yz.y, fade_xyz.x);
+                return 2.2 * n_xyz;
+            }
+
+            float grain(vec2 texCoord, vec2 resolution, float frame, float multiplier) {
+                vec2 mult = texCoord * resolution;
+                float offset = noise(vec3(mult / multiplier, frame));
+                float n1 = pnoise(vec3(mult, offset), vec3(1.0/texCoord * resolution, 1.0));
+                return n1 / 2.0 + 0.5;
+            }
+
+            float grain(vec2 texCoord, vec2 resolution, float frame) {
+                return grain(texCoord, resolution, frame, 2.5);
+            }
+
+            float grain(vec2 texCoord, vec2 resolution) {
+                return grain(texCoord, resolution, 0.0);
+            }
+
+            uniform float u_scale;
+            uniform float u_seed;
+            uniform float u_time;
+            uniform float u_middle;
+
+            const float u_brightness = 2.2;
+            const float u_base = abs(1.0*u_brightness-1.0);
+            const float u_min = 0.50;
+
+            void main() {
+                float slow_time = u_time / 5000.0;
+
+                float x = u_seed + (gl_FragCoord.x * u_scale * 0.01);
+                float y = (gl_FragCoord.y - (u_middle*0.5)) * u_scale * 0.01;
+
+                float val_p = noise(vec3(y - 100.0, x, slow_time * 0.001));
+                float val_n = noise(vec3(y, x, slow_time));
+
+                float br = (val_n) * float((val_n - val_p) > 0.5) * u_brightness;
+
+                float rp = noise(vec3(x, y+br, slow_time)) * u_brightness;
+                float gp = noise(vec3(x, y+br, slow_time + 256.0)) * u_brightness;
+                float bp = noise(vec3(x, y+br, slow_time + 512.0)) * u_brightness;
+
+                float r = min((u_base + rp)*0.5 + u_min, 1.0);
+                float g = min((u_base + (gp * bp))*0.5 + u_min, 1.0);
+                float b = min((u_base + bp)*0.5 + u_min, 1.0);
+
+                float n = grain(gl_FragCoord.xy * 4.0, vec2(1920.0, 1080.0) * 4.0, slow_time, 1.0) - 0.4;
+                // float n = 0.0;
+
+                // float shift_to_black = clamp((-gl_FragCoord.y + (u_middle-300.0)) / u_middle, 0.0, 10.0);
+                float shift_to_black = 0.0;
+
+                vec3 out_color = vec3(r, g, b) + n - shift_to_black;
+
+                gl_FragColor = vec4(out_color, 1.0);
+            }
+        `)
+
+        gl.compileShader(fragmentShader)
+
+        program = gl.createProgram()
+
+        gl.attachShader(program, vertexShader)
+        gl.attachShader(program, fragmentShader)
+        gl.linkProgram(program)
+        gl.useProgram(program)
+
+        timeLocation = gl.getUniformLocation(program, 'u_time')
+        seedLocation = gl.getUniformLocation(program, 'u_seed')
+        minLocation = gl.getUniformLocation(program, 'u_min')
+        scaleLocation = gl.getUniformLocation(program, 'u_scale')
+        middleLocation = gl.getUniformLocation(program, 'u_middle')
+
+        gl.uniform1f(scaleLocation, 0.1)
+        gl.uniform1f(middleLocation, window.innerHeight)
+        gl.uniform1f(seedLocation, Math.random() * 10e3)
+
+        updateSize(canvas, gl)
+
+        positionLocation = gl.getAttribLocation(program, 'a_position')
+        gl.enableVertexAttribArray(positionLocation)
+        gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0)
+
+        render()
+    })
+
+    window.addEventListener('resize', () => {
+        canvas = document.getElementById('glcanvas')
+        gl = canvas.getContext('webgl')
+
+        updateSize(canvas, gl)
+    })
+
+    window.addEventListener('scroll', () => {
+        canvas = document.getElementById('glcanvas')
+        gl = canvas.getContext('webgl')
+
+        updateSize(canvas, gl)
+    })
+
+    function render() {
+        const now = performance.now()
+        gl.uniform1f(timeLocation, now)
+        gl.uniform1f(minLocation, Math.sin(now / 100));
+        gl.drawArrays(gl.TRIANGLES, 0, 6)
+        window.requestAnimationFrame(render)
+    }
+</script>
+
+</html>
