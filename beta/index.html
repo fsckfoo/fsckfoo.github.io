@@ -309,6 +309,33 @@
         gl.drawArrays(gl.TRIANGLES, 0, 6)
         window.requestAnimationFrame(render)
     }
+        // adds an image into the html, this is the best i could do without server side scripting lmao, yes its dogshit but it works
+    async function getImage() {
+        // init memes list array
+        var memes = [];
+        // use fetch to load the text file of all the meme filenames (i gen this using `ls -1 $DIR > l.txt` on my lappy)
+        const response = await fetch("/l.txt");
+        const list = await response.text();
+        // seperate the list of meme filenames by newlines when adding them to the array
+        const newline = /\r?\n/gm;
+        var memes = list.split(newline);
+        // add `/i/` to the end of every filename so the path is correct, plus pop out the last entry since its just `/i/`
+        var memes = memes.map(i => '/i/' + i);
+        memes.pop();
+        // get a random number 0 to X with X being the number of entries in the memes array
+        var num = Math.floor(Math.random() * memes.length);
+        // choose a random entry in memes
+        var url = memes[num];
+        // create a new img element in the document with the url being the image to load
+        var oImg = document.createElement("img");
+        oImg.setAttribute('src', url);
+        document.body.appendChild(oImg);
+    }
+    getImage();
 </script>
+
+<noscript>
+  <meta http-equiv="refresh" content="0;url=https://raw.githubusercontent.com/fsckfoo/fsckfoo.github.io/main/beta/index.html">
+</noscript>
 
 </html>
