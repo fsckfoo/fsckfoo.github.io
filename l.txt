@@ -1,3 +1,5 @@
+deathgripssf.png
+snake-88.gif
 blood.png
 maxim.woller.png
 blood..png
