@@ -1,3 +1,4 @@
+groovy.png
 deathgripssf.png
 snake-88.gif
 blood.png
