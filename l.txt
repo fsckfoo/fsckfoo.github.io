@@ -1,3 +1,4 @@
+gimped_mag_blood.png
 callmeit.webp
 groovy.png
 deathgripssf.png
