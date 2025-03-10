@@ -1,3 +1,4 @@
+MOMO.png
 punchcard.png
 gimped_mag_blood.png
 callmeit.webp
