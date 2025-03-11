@@ -1,3 +1,8 @@
+corrupted_street.jpeg
+corrupted_bridgest.jpeg
+untitled.jpeg
+corrupted_bridge.jpeg
+corrupted_leg.jpeg
 MOMO.png
 punchcard.png
 gimped_mag_blood.png
