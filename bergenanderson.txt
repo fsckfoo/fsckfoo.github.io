@@ -1,3 +1,5 @@
+* BEGIN UNENCRYPTED MESSAGE *
+
 how to shoot my glock 48 gen 5 machine gun (technically any other weapon under the law):
 DISCLAIMER: I KILL PEDOPHILES! YOU MUST PAY YOUR WAY; AMMUNITION, FOOD, GAS, ETC. I AM NOT CHARGING YOU TO SHOOT A MACHINE GUN AT A SHOOTING RANGE. UNDER 21? THATS LEGAL! UNDER 18? THATS LEGAL TOO! BRING YOUR FRIENDS!!!!
 0. drive me, Lucy Säure Diethylamide  to Linn County Circuit Courthouse in Linn County, OR [300 SW 4th Ave, Albany, OR 97321] ON A WEEKDAY {OPEN 0800–1200, 1300–1700} SO I CAN PICK IT UP
@@ -28,5 +30,98 @@ b0jwwOenOAD/aEXSzxqQKiB4F+E04kqZwo+U0X+r7lFQAWAsgvA7oEUBANY6
 =HOj6
 -----END PGP PUBLIC KEY BLOCK-----
 
+* END UNENCRYPTED MESSAGE *
+
+* START EMAIL HEADERS AND BODY *
+
+X-Pm-Content-Encryption: end-to-end
+
+X-Pm-Origin: internal
+
+Subject: SIGNATURE
+
+To: alleyesonthedime <alleyesonthedime@protonmail.com>
+
+From: all eyes on the dime <alleyesonthedime@proton.me>
+
+Date: Fri, 14 Mar 2025 20:08:41 +0000
+
+Mime-Version: 1.0
+
+Content-Type: text/plain
+
+Message-Id: <3PF00wRlphM0LD7gkf7vr_NHyep7QVNWXuueusBOYglICn9lLTBRLIED33Op_b42IW17TKYX2RUJSN26iTW8rRQ1LWsZGSw0zl__h_r6dsQ=@proton.me>
+
+X-Attached: publickey - alleyesonthedime@proton.me - 0xBA826067.asc
+
+X-Pm-Spamscore: 0
+
+Received: from mail.protonmail.ch by mail.protonmail.ch; Fri, 14 Mar 2025 20:08:43 +0000
+
+X-Original-To: alleyesonthedime@protonmail.com
+
+Return-Path: <alleyesonthedime@proton.me>
+
+Delivered-To: alleyesonthedime@protonmail.com
+
+
+
+-----BEGIN PGP MESSAGE-----
+Version: ProtonMail
+
+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
+=Ti9Y
+-----END PGP MESSAGE-----
+
+* END EMAIL HEADERS AND BODY *
 
 I CHECK THESE DAILY.
