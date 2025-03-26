@@ -1,4 +1,4 @@
-when u create a shitty meme website and accidentally find a XSS 0day in github
+when u create a shitty meme website and accidentally find a XSS -1 day in github
 
 ░▒▓███████▓▒░░▒▓█▓▒░      ░▒▓██████▓▒░ ░▒▓██████▓▒░░▒▓███████▓▒░  
 ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░     ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░ 
