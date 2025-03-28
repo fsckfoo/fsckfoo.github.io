@@ -44,7 +44,7 @@
         // init memes list array
         var memes = [];
         // use fetch to load the text file of all the meme filenames (i gen this using `ls -1 $DIR > l.txt` on my lappy)
-        const response = await fetch("/beta/l2.txt");
+        const response = await fetch("/l2.txt");
         const list = await response.text();
         // seperate the list of meme filenames by newlines when adding them to the array
         const newline = /\r?\n/gm;
