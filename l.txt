@@ -1,3 +1,4 @@
+part.of.the.bulb.png
 gimped_scratch.png
 gimped2.png
 gimped3.png
