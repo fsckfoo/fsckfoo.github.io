@@ -1,3 +1,7 @@
+gimped_scratch.png
+gimped2.png
+gimped3.png
+gimped4.png
 gimped_hips2.png
 gimped_hole.png
 gimped5.png
