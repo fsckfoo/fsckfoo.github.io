@@ -1,3 +1,6 @@
+gimp.pepper.discord.emoji.png
+gimpe_parents_meme.png
+gimped_bitmeme.png
 eye.jpg
 corrupted_selfie.png
 face.png
