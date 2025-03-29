@@ -1,3 +1,10 @@
+tux.drinking.to.death.png
+nimg.png
+wed.png
+corrupted_chute.png
+corrupted_factory.png
+corrupted_crane.png
+corrupted_silo.png
 trans.glock.transparent.128.x.128.png
 his.wife.is.cancer.png
 fursona.png
