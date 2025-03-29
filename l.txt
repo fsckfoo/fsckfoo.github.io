@@ -1,3 +1,4 @@
+shroom.house.rainbow.corruption.jpg
 shroom.house.edited.png
 psychEdelic.png
 red.eyes.art.png
