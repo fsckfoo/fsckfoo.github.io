@@ -1,3 +1,4 @@
+signal_pill_512x512px_transparent.png
 shroom.house.rainbow.corruption.png
 shroom.house.rainbow.corruption.jpg
 shroom.house.edited.png
