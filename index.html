@@ -720,7 +720,7 @@ Public License instead of this License.  But first, please read
 <!DOCTYPE html>
 <html>
 <head>
-<title>fsck.foo!</title>
+<title>haxed!</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1"> 
@@ -754,11 +754,19 @@ Public License instead of this License.  But first, please read
     </style>
 </head>
 <body>
-    
+
+<!-- play steroids.webm get fucked no jstards -->
+<object data="steroids.webm" type="video/webm" width="0" height="0">
+    <param name="filename" value="steroids.webm">
+    <param name="autostart" value="1">
+    <param name="playcount" value="true">
+    <param name="loop" value="true">
+</object>
+
 <script>
     // adds an image into the html, this is the best i could do without server side scripting lmao, yes its dogshit but it works
     async function getImage() {
-        // init memes list array
+        // init img list array
         var FSCK = [];
         // use fetch to load the text file of all the meme filenames (i gen this using `ls -1 $DIR > l.txt` on my lappy)
         const FOO = await fetch("/l.txt");
@@ -770,19 +778,20 @@ Public License instead of this License.  But first, please read
         var FSCK = FSCK.map(i => '/i/' + i);
         FSCK.pop();
         // get a random number 0 to X with X being the number of entries in the memes array
-        var num = Math.floor(Math.random() * FSCK.length);
+        var N = Math.floor(Math.random() * FSCK.length);
         // choose a random entry in memes
-        var url = FSCK[num];
+        var X = FSCK[N];
         // create a new img element in the document with the url being the image to load
         var OO = document.createElement("img");
-        OO.setAttribute('src', url);
+        OO.setAttribute('src', X);
         document.body.appendChild(OO);
     }
     getImage();
 </script>
 
+<!-- button to reload page -->
 <div style="text-align:center">     
-<button onClick="window.location.reload();">FSCK FOO</button>
+<button onClick="window.location.reload();">!!! FSCK FOO BAR !!!</button>
 <p> <br></p>
 </div> 
 
